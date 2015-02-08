@@ -8,7 +8,8 @@ module Hirundo
     end
 
     get '/login' do
-      p 'This is the login page'
+      @title = 'Welcome to Hirundo!'
+      haml :login
     end
   end
 end

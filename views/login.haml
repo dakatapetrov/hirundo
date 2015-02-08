@@ -1,0 +1,22 @@
+.text-center
+  %img.spacer{ src: "img/owl.png" }
+  %h1 Welcome to Hirundo!
+  %img.spacer{ src: "img/crowd.png" }
+  %p.lead.spacer This is an application, which helps you keep in touch with your friends, follow their latest news and share your thoughs.
+  %p.lead Just log in or register if you don't have an account to begin sharing.
+
+  %form.spacer{ method: "post", role: "form" }
+    .form-group
+      %label{ for: "username" } Username:
+      .col-xs-3.centered
+        %input.form-control{ id: "username", type: "text", name: "username" }
+    .form-group
+      %label Password:
+      .col-xs-3.centered
+        %input.form-control{ type: "password", name: "password" }
+    %button.btn.btn-default{ type: "submit" } Login
+
+  %p.spacer
+    Still don't have an account?
+    %a{ href: "/user/register" } Register
+    now!
