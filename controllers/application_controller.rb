@@ -1,6 +1,8 @@
 module Hirundo
   class ApplicationController < Base
-    # helpers ApplicationHelpers
-
+    not_found do
+      title = 'Not found'
+      haml :not_found, locals: { title: title }
+    end
   end
 end
