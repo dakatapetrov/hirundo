@@ -1,44 +1,38 @@
 module Hirundo
   class WebsiteController < ApplicationController
-    not_found do
-      @title = 'Not found'
-      haml :not_found
-    end
-
-    get '/login' do
-      @title = 'Welcome to Hirundo!'
-      haml :login
-    end
-
     get '/' do
       redirect '/login'
     end
 
+    get '/login' do
+      title = 'Welcome to Hirundo!'
+      haml :login, locals: { title: title }
+    end
+
     get '/register' do
-      @title = 'Register'
-      haml :register
+      title = 'Register'
+      haml :register, locals: { title: title }
     end
 
     post '/register' do
-      username       = params[:username]
-      password       = params[:password]
-      password_again = params[:password_again]
-      email          = params[:email]
+      username              = params[:username]
+      password              = params[:password]
+      password_confirmation = params[:password_confirmation]
+      email                 = params[:email]
 
-      if password == password_again
-        user = User.new(username, password, email)
-        if user.valid?
-          user.save
-          @success = 'Your registration was successful, you can login now.'
-        else
-          @error = "#{user.errors.messages}"
-        end
+      user = User.new(username, password, password_confirmation, email)
+      if user.valid?
+        user.save
+        success = 'Your registration was successful, you can login now.'
       else
-        @error = 'Both passwords should match.'
+        error = user.errors.messages
       end
 
-      redirect '/login' unless @error
-      haml :register
+      if success
+        haml :login, locals: { title: 'Welcome to Hirundo!', success: success }
+      else
+        haml :register, locals: { title: 'Register', error: error }
+      end
     end
 
   helpers ViewHelpers
