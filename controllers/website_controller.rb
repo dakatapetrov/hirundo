@@ -9,6 +9,22 @@ module Hirundo
       haml :login, locals: { title: title }
     end
 
+    post '/login' do
+      username       = params[:username]
+      password       = params[:password]
+
+      user = User.findByUsername username
+
+      if user && user.password?(password)
+        success = "Welcome, #{username}!"
+      else
+        error = "Wrong username and/or password!"
+      end
+
+      title = 'Welcome to Hirundo!'
+      haml :login, locals: {title: title, error: error, success: success}
+    end
+
     get '/register' do
       title = 'Register'
       haml :register, locals: { title: title }
