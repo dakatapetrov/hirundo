@@ -10,6 +10,22 @@ module Hirundo
       haml :login
     end
 
+    post '/login' do
+      username       = params[:username]
+      password       = params[:password]
+
+      user = User.findByUsername username
+
+      if user && user.password?(password)
+        @success = "Welcome, #{username}!"
+      else
+        @error = "Wrong username and/or password!"
+      end
+
+      @title = 'Welcome to Hirundo!'
+      haml :login
+    end
+
     get '/' do
       redirect '/login'
     end
