@@ -1,7 +1,5 @@
 module Hirundo
   class WebsiteController < ApplicationController
-    # helpers WebsiteHelpers
-
     not_found do
       @title = 'Not found'
       haml :not_found
@@ -10,6 +8,10 @@ module Hirundo
     get '/login' do
       @title = 'Welcome to Hirundo!'
       haml :login
+    end
+
+    get '/' do
+      redirect '/login'
     end
 
     get '/register' do
@@ -23,14 +25,22 @@ module Hirundo
       password_again = params[:password_again]
       email          = params[:email]
 
-      user = User.new(username, password, email)
-
-      if user.valid?
-        user.save
-        p 'Valid'
+      if password == password_again
+        user = User.new(username, password, email)
+        if user.valid?
+          user.save
+          @success = 'Your registration was successful, you can login now.'
+        else
+          @error = "#{user.errors.messages}"
+        end
       else
-        p "#{user.errors.messages}"
+        @error = 'Both passwords should match.'
       end
+
+      redirect '/login' unless @error
+      haml :register
     end
+
+  helpers ViewHelpers
   end
 end
