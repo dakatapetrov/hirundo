@@ -1,0 +1,22 @@
+.text-center
+  %h1 Register
+
+  %form.spacer{ method: "post", role: "form" }
+    .form-group
+      %label{ for: "username" } Username:
+      .col-xs-3.centered
+        %input.form-control{ id: "username", type: "text", name: "username" }
+    .form-group
+      %label Password:
+      .col-xs-3.centered
+        %input.form-control{ type: "password", name: "password" }
+    .form-group
+      %label Repeat Password:
+      .col-xs-3.centered
+        %input.form-control{ type: "password", name: "password_again" }
+    .form-group
+      %label E-mail:
+      .col-xs-3.centered
+        %input.form-control{ type: "email", name: "email" }
+
+    %button.btn.btn-default{ type: "submit" } Register
