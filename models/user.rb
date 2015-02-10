@@ -23,4 +23,14 @@ class User
       password: password,
     )
   end
+
+  def password?(password)
+    @password.eql? password
+  end
+
+  class << self
+    def findByUsername(username)
+      User.find_by(username: username)
+    end
+  end
 end
