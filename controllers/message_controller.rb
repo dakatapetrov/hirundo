@@ -23,7 +23,7 @@ module Hirundo
         set_error message.errors.messages
       end
 
-      redirect '/feed'
+      redirect '/messages/feed'
     end
 
     helpers ViewHelpers
