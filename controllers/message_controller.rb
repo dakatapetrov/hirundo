@@ -26,6 +26,11 @@ module Hirundo
       redirect '/messages/feed'
     end
 
+    get '/latest' do
+      messages = Message.all
+      haml :latest, { locals: { title: 'Latest Messages', messages: messages } }
+    end
+
     helpers ViewHelpers
   end
 end
