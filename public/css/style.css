@@ -10,3 +10,13 @@
 .right-spacer {
     margin-right: 15px;
 }
+
+.alert {
+    width: 50%;
+}
+
+.center-block {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+}
