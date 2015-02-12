@@ -11,5 +11,13 @@ module Hirundo
     def redirect_home
       redirect '/'
     end
+
+    def user_logged?
+      session[:username]
+    end
+
+    def protected!
+      halt 401, (redirect '/login') unless user_logged?
+    end
   end
 end
