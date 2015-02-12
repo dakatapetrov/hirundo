@@ -2,7 +2,7 @@ module Hirundo
   class ApplicationController < Base
     get '/' do
       redirect '/login' unless user_logged?
-      redirect '/messages'
+      redirect '/messages/feed'
     end
 
     not_found do

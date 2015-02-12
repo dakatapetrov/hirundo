@@ -48,7 +48,6 @@ module Hirundo
       redirect_home
     end
 
-    helpers WebsiteHelpers
     helpers ViewHelpers
   end
 end
