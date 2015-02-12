@@ -7,7 +7,7 @@ module Hirundo
                 "<p>#{error}</p>"
               when Hash
                 puts "hash"
-                error.values.inject("") { |memo, value| memo += "<p>#{value.first}</p>" }
+                error.values.inject("") { |memo, value| memo += "<p>#{value.inject("") { |m, v| m += v }}</p>" }
               else
                 puts "else"
               end
@@ -16,11 +16,11 @@ module Hirundo
       p inner
       puts error.class
 
-      "<div class='alert alert-danger'>#{inner}</div>" if error
+      "<div class='center-block alert alert-danger'>#{inner}</div>" if error
     end
 
     def show_success_message(success)
-      "<div class='alert alert-success'><span>#{success}</span></div>" if success
+      "<div class='center-block alert alert-success'><span>#{success}</span></div>" if success
     end
 
     def date_to_string(date)
