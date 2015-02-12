@@ -9,6 +9,10 @@
       .col-xs-3.centered
         %input.form-control{ id: "username", type: "text", name: "username" }
     .form-group
+      %label E-mail:
+      .col-xs-3.centered
+        %input.form-control{ type: "email", name: "email" }
+    .form-group
       %label Password:
       .col-xs-3.centered
         %input.form-control{ type: "password", name: "password" }
@@ -16,9 +20,5 @@
       %label Repeat Password:
       .col-xs-3.centered
         %input.form-control{ type: "password", name: "password_confirmation" }
-    .form-group
-      %label E-mail:
-      .col-xs-3.centered
-        %input.form-control{ type: "email", name: "email" }
 
     %button.btn.btn-default{ type: "submit" } Register
