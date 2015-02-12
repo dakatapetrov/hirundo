@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'bundler'
 require 'mongoid'
+require 'bcrypt'
 
 module Hirundo
   Bundler.require
