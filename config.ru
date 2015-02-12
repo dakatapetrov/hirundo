@@ -18,6 +18,7 @@ end
 
 Mongoid.load!('mongoid.yml')
 
+require './helpers/application_helpers'
 require './controllers/application_controller'
 
 Dir.glob('./{models,helpers,controllers}/*.rb').each { |file| require file }
