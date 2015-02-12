@@ -3,13 +3,10 @@ module Hirundo
     def show_error_message(error)
       inner = case error
               when String
-                puts "string"
                 "<p>#{error}</p>"
               when Hash
-                puts "hash"
                 error.values.inject("") { |memo, value| memo += "<p>#{value.inject("") { |m, v| m += v }}</p>" }
               else
-                puts "else"
               end
 
       p error
