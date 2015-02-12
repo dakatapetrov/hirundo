@@ -12,6 +12,7 @@ module Hirundo
 
     enable :sessions
 
+    register Sinatra::Flash
   end
 end
 
