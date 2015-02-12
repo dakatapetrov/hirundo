@@ -1,28 +1,23 @@
 module Hirundo
   class WebsiteController < ApplicationController
-    get '/' do
-      redirect '/login'
-    end
-
     get '/login' do
       title = 'Welcome to Hirundo!'
       haml :login, locals: { title: title }
     end
 
     post '/login' do
-      username       = params[:username]
-      password       = params[:password]
+      username = params[:username]
+      password = params[:password]
 
       user = User.find_by_username username
 
       if user && user.password?(password)
-        success = "Welcome, #{username}!"
+        session[:username] = username
       else
-        error = "Wrong username and/or password!"
+        set_error "Wrong username and/or password!"
       end
 
-      title = 'Welcome to Hirundo!'
-      haml :login, locals: {title: title, error: error, success: success}
+      redirect_home
     end
 
     get '/register' do
@@ -39,18 +34,21 @@ module Hirundo
       user = User.new(username, password, password_confirmation, email)
       if user.valid?
         user.save
-        success = 'Your registration was successful, you can login now.'
-      else
-        error = user.errors.messages
-      end
 
-      if success
-        haml :login, locals: { title: 'Welcome to Hirundo!', success: success }
+        set_success 'Your registration was successful, you can login now.'
+        redirect '/login'
       else
-        haml :register, locals: { title: 'Register', error: error }
+        set_error user.errors.messages
+        redirect '/register'
       end
     end
 
-  helpers ViewHelpers
+    get '/logout' do
+      session.clear
+      redirect_home
+    end
+
+    helpers WebsiteHelpers
+    helpers ViewHelpers
   end
 end
