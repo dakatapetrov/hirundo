@@ -14,6 +14,7 @@ class User
 
   validates_presence_of :username, message: 'Please provide an username.'
   validates_uniqueness_of :username, message: 'This username is already taken.'
+  validates_uniqueness_of :email, message: 'This e-mail is already used.'
   validates_length_of :password, minimum: 6, message: 'The password should be at least 6 symbols.'
   validates_confirmation_of :password, message: 'Both passwords should match.'
 
