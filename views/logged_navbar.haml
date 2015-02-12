@@ -1,0 +1,11 @@
+%nav.navbar.navbar-default.navbar-inverse.navbar-static-top
+  %a.navbar-brand{ :href => "/" } Hirundo
+  %ul.nav.navbar-nav
+    %li
+      %a{ href: "/latest" } Latest
+
+  %ul.nav.navbar-nav.navbar-right
+    %li.right-spacer
+      %a{ href: "/user/#{session[:username]}" } #{session[:username]}
+    %li.right-spacer
+      %a{ href: "/logout" } Logout
