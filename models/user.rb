@@ -7,7 +7,7 @@ class User
   field :username, type: String
   field :email, type: String
   field :password, type: String
-  field :registration_date, type: Time, default: Time.now
+  field :registration_date, type: Time, default: ->{ Time.now }
   field :is_verified, type: Boolean, default: false
 
   has_many :follows, class_name: "User", inverse_of: :user
