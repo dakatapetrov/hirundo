@@ -6,7 +6,7 @@
     %link(href="/css/bootstrap.min.css" rel="stylesheet" media="screen")
     %link(href="/css/style.css" rel="stylesheet" media="screen")
   %body
-    = haml :not_logged_navbar
+    = user_logged? ? (haml :logged_navbar) : (haml :not_logged_navbar)
 
     .container
       = yield
