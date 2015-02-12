@@ -29,7 +29,7 @@ class User
   end
 
   class << self
-    def findByUsername(username)
+    def find_by_username(username)
       User.find_by(username: username)
     end
   end
