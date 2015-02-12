@@ -7,7 +7,9 @@
     %link(href="/css/style.css" rel="stylesheet" media="screen")
   %body
     = haml :not_logged_navbar
-    = yield
+
+    .container
+      = yield
 
     %script(src="/js/jquery-2.1.0.min.js")
     %script(src="/js/custom.js")
