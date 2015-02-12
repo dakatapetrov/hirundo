@@ -1,8 +1,7 @@
 class User
   include Mongoid::Document
   include ActiveModel::Validations
-
-  attr_accessor :username, :email, :password, :password_confirmation, :registration_date, :is_verified
+  include BCrypt
 
   field :username, type: String
   field :email, type: String
@@ -18,6 +17,8 @@ class User
   validates_uniqueness_of :email, message: 'This e-mail is already used.'
   validates_length_of :password, minimum: 6, message: 'The password should be at least 6 symbols long.'
   validates_confirmation_of :password, message: 'Both passwords should match.'
+
+  before_save :encrypt_password
 
   def initialize(username, password, password_confirmation, email)
     super(
@@ -35,6 +36,11 @@ class User
   end
 
   def password?(password)
-    @password.eql? password
+    user_password = Password.new(self.password)
+    user_password == password
+  end
+
+  def encrypt_password
+    self.password = Password.create(self.password)
   end
 end
