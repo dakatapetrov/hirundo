@@ -13,7 +13,7 @@ module Hirundo
       username       = params[:username]
       password       = params[:password]
 
-      user = User.findByUsername username
+      user = User.find_by_username username
 
       if user && user.password?(password)
         success = "Welcome, #{username}!"
