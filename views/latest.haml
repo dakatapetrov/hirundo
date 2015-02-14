@@ -1,15 +1,18 @@
-- if locals[:messages]
-  .table-responsive
-    %table.table.table-condensed
-      %tr
-        %th.text-center Message
-        %th.text-center Location
-        %th.text-center Date
-        %th.text-center User
+.text-center
+  %h1
+    = locals[:title]
 
-      - locals[:messages].each do |message|
-        %tr
-          %td= message.content
-          %td= message.location
-          %td= date_to_string(message.date)
-          %td= message.user.username
+- if locals[:messages]
+  - locals[:messages].each do |message|
+    .panel.panel-default
+      .panel-heading.inline
+        %strong
+          = message.user.username + ':'
+        .right
+          = date_to_string(message.date)
+      .panel-body
+        = print_message_content(message)
+        - if message.location
+          .right
+            %span.glyphicon.glyphicon-map-marker
+            = message.location
