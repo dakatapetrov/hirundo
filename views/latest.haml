@@ -2,9 +2,12 @@
   %h1
     = locals[:title]
 
+- if locals[:tags]
+  %a{ href: "/messages/latest" } Show all latest messages
+
 - if locals[:messages]
   - locals[:messages].each do |message|
-    .panel.panel-default
+    .panel.panel-default.spacer
       .panel-heading.inline
         %strong
           = message.user.username + ':'
