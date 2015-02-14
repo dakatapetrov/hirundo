@@ -27,7 +27,7 @@ module Hirundo
     end
 
     get '/latest' do
-      messages = Message.all
+      messages = Message.all.desc(:date)
       haml :latest, { locals: { title: 'Latest Messages', messages: messages } }
     end
 
