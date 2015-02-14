@@ -5,6 +5,7 @@ class Message
   field :content, type: String
   field :location, type: String
   field :date, type: Time, default: ->{ Time.now }
+  field :tags, type: Array
 
   belongs_to :user
 
@@ -15,7 +16,8 @@ class Message
     super(
       content: content,
       location: location,
-      user: user
+      user: user,
+      tags: content.scan(/(?:\s|^)(?:#(?!(?:\d+|\w+?_|_\w+?)(?:\s|$)))(\w+)(?=\s|$)/i).map(&:first)
     )
   end
 end
