@@ -11,6 +11,10 @@
     margin-right: 15px;
 }
 
+.right {
+    float: right;
+}
+
 .alert {
     width: 50%;
 }
@@ -19,4 +23,8 @@
   display: block;
   margin-right: auto;
   margin-left: auto;
+}
+
+.inline div {
+    display: inline;
 }
