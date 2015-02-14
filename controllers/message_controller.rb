@@ -27,14 +27,14 @@ module Hirundo
     end
 
     get '/latest' do
-      messages = Message.all.desc(:date)
+      messages = Message.find_latest
       haml :latest, { locals: { title: 'Latest Messages', messages: messages } }
     end
 
     get '/hashtag/*' do |tags|
       tags = tags.split('/')
-      messages = Message.all_in(tags: tags).desc(:date)
-      haml :latest, { locals: { title: 'Filtered Messages', messages: messages } }
+      messages = Message.find_by_tags(tags)
+      haml :latest, { locals: { title: 'Filtered Messages', messages: messages, tags: true } }
     end
 
     helpers ViewHelpers

@@ -20,4 +20,14 @@ class Message
       tags: content.scan(/(?:\s|^)(?:#(?!(?:\d+|\w+?_|_\w+?)(?:\s|$)))(\w+)(?=\s|$)/i).map(&:first)
     )
   end
+
+  class << self
+    def find_latest(limit = 50)
+      Message.all.desc(:date).limit(limit)
+    end
+
+    def find_by_tags(tags, limit = 50)
+      Message.all_in(tags: tags).desc(:date).limit(limit)
+    end
+  end
 end
