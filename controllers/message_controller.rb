@@ -31,8 +31,9 @@ module Hirundo
       haml :latest, { locals: { title: 'Latest Messages', messages: messages } }
     end
 
-    get '/hashtag/:tag' do
-      messages = Message.where(tags: params[:tag]).desc(:date)
+    get '/hashtag/*' do |tags|
+      tags = tags.split('/')
+      messages = Message.all_in(tags: tags).desc(:date)
       haml :latest, { locals: { title: 'Filtered Messages', messages: messages } }
     end
 
