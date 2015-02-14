@@ -25,7 +25,18 @@ module Hirundo
     end
 
     def date_to_string(date)
-      date.strftime("%d/%m/%Y")
+      date.strftime("%d/%m/%Y %H:%M:%S")
+    end
+
+    def print_message_content(message)
+      content = message.content
+      if message.tags
+        message.tags.each do |tag|
+          content.gsub!("##{tag}", "<a href=/messages/hashtag/#{tag}>##{tag}</a>")
+        end
+      end
+
+      content
     end
   end
 end
