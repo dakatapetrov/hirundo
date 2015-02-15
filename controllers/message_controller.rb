@@ -6,7 +6,11 @@ module Hirundo
 
     get '/feed' do
       title = "Hirundo - Feed"
-      haml :feed, locals: { title: title }
+
+      current_user = User.find_by_username(session[:username])
+      messages = Message.find_by_followers(current_user.follows)
+
+      haml :feed, locals: { title: title, messages: messages }
     end
 
     post '/feed' do
