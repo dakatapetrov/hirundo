@@ -6,6 +6,6 @@
 
   %ul.nav.navbar-nav.navbar-right
     %li.right-spacer
-      %a{ href: "/user/#{session[:username]}" } #{session[:username]}
+      %a{ href: "/user/profile/#{session[:username]}" } #{session[:username]}
     %li.right-spacer
       %a{ href: "/logout" } Logout
