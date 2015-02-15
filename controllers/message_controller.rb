@@ -12,7 +12,7 @@ module Hirundo
     post '/feed' do
       content  = params[:content]
       location = params[:location]
-      user     = User.find_by_username(session[:username])
+      user     = get_current_user
 
       message  = Message.new(content, location, user)
       if message.valid?
@@ -28,8 +28,12 @@ module Hirundo
 
     get '/latest' do
       messages = Message.find_latest
-      current_user = User.find_by_username(session[:username])
-      haml :latest, { locals: { title: 'Latest Messages', messages: messages, current_user: current_user } }
+
+      haml :latest, locals: {
+        title: 'Latest Messages',
+        messages: messages,
+        followed: get_followed
+      }
     end
 
     get '/new.json' do
@@ -50,8 +54,13 @@ module Hirundo
     get '/hashtag/*' do |tags|
       tags = tags.split('/')
       messages = Message.find_by_tags(tags)
-      current_user = User.find_by_username(session[:username])
-      haml :latest, { locals: { title: 'Filtered Messages', messages: messages, tags: true, current_user: current_user } }
+
+      haml :latest, locals: {
+        title: 'Filtered Messages',
+        messages: messages,
+        tags: true,
+        followed: get_followed
+      }
     end
 
     helpers ViewHelpers
