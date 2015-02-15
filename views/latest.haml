@@ -19,5 +19,6 @@
       .panel-body
         = print_message_content(message)
         - if !message.location.empty?
-          %span.glyphicon.glyphicon-map-marker
-            = message.location
+          .right
+            %span.glyphicon.glyphicon-map-marker
+              = message.location
