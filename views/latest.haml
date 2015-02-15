@@ -11,7 +11,7 @@
     .panel.panel-default.spacer
       .panel-heading.inline
         %strong
-          - if current_user.follows.map(&:username).include? message.user.username
+          - if locals[:followed].include? message.user.username
             <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
           = '<a href="/user/profile/' + message.user.username + '">' + message.user.username + '</a>:'
         .right
@@ -20,10 +20,5 @@
         = print_message_content(message)
         - if !message.location.empty?
           .right
-            = date_to_string(message.date)
-        .panel-body
-          = print_message_content(message)
-          - if message.location
-            .right
-              %span.glyphicon.glyphicon-map-marker
+            %span.glyphicon.glyphicon-map-marker
               = message.location
