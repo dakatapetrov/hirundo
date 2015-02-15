@@ -5,17 +5,18 @@
 - if locals[:tags]
   %a{ href: "/messages/latest" } Show all latest messages
 
-- if locals[:messages]
-  - locals[:messages].each do |message|
-    .panel.panel-default.spacer
-      .panel-heading.inline
-        %strong
-          = message.user.username + ':'
-        .right
-          = date_to_string(message.date)
-      .panel-body
-        = print_message_content(message)
-        - if message.location
+.messages.container
+  - if locals[:messages]
+    - locals[:messages].each do |message|
+      .panel.panel-default.spacer
+        .panel-heading.inline
+          %strong
+            = message.user.username + ':'
           .right
-            %span.glyphicon.glyphicon-map-marker
-            = message.location
+            = date_to_string(message.date)
+        .panel-body
+          = print_message_content(message)
+          - if message.location
+            .right
+              %span.glyphicon.glyphicon-map-marker
+              = message.location
