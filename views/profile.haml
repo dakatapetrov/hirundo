@@ -1,6 +1,6 @@
 .text-center
   %h1
-    = locals[:title]
+    = locals[:title] + ' - ' + user.username
 
 %h2 Information
 
@@ -27,8 +27,8 @@
       = messages.size
 
 - if user.follows.size > 0
-  %h2 Follows
-  %table.table
+  %h2.spacer Follows
+  %table.table.table-condensed.spacer
     - user.follows.each do |followed|
       %tr
         %th
@@ -39,10 +39,9 @@
 - else
   %h2 This user has followed no one so far.
 
-
 - if locals[:messages].size > 0
-  %h2 Shared Messages
+  %h2.spacer Shared Messages
 - else
-  %h2 This user has no shared messages yet
+  %h2.spacer This user has no shared messages yet
 
 = (haml :show_messages, locals: locals)
