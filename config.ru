@@ -2,6 +2,7 @@ require 'rubygems'
 require 'bundler'
 require 'mongoid'
 require 'bcrypt'
+require 'json'
 
 module Hirundo
   Bundler.require

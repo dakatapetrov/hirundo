@@ -32,6 +32,21 @@ module Hirundo
       haml :latest, { locals: { title: 'Latest Messages', messages: messages, current_user: current_user } }
     end
 
+    get '/new.json' do
+      redirect '/messages/latest' unless request.xhr?
+      content_type :json
+
+      messages = Message.find_latest_in_period.reverse
+      messages_json = JSON.parse(messages.to_json)
+
+      messages.each_with_index do |message, index|
+        username = message.user.username
+        messages_json[index].merge!(username: username)
+      end
+
+      messages_json.to_json
+    end
+
     get '/hashtag/*' do |tags|
       tags = tags.split('/')
       messages = Message.find_by_tags(tags)

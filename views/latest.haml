@@ -5,6 +5,7 @@
 - if locals[:tags]
   %a{ href: "/messages/latest" } Show all latest messages
 
+.messages.container
 - if locals[:messages]
   - locals[:messages].each do |message|
     .panel.panel-default.spacer
@@ -19,5 +20,10 @@
         = print_message_content(message)
         - if !message.location.empty?
           .right
-            %span.glyphicon.glyphicon-map-marker
-            = message.location
+            = date_to_string(message.date)
+        .panel-body
+          = print_message_content(message)
+          - if message.location
+            .right
+              %span.glyphicon.glyphicon-map-marker
+              = message.location
