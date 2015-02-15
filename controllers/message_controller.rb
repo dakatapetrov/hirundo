@@ -28,13 +28,15 @@ module Hirundo
 
     get '/latest' do
       messages = Message.find_latest
-      haml :latest, { locals: { title: 'Latest Messages', messages: messages } }
+      current_user = User.find_by_username(session[:username])
+      haml :latest, { locals: { title: 'Latest Messages', messages: messages, current_user: current_user } }
     end
 
     get '/hashtag/*' do |tags|
       tags = tags.split('/')
       messages = Message.find_by_tags(tags)
-      haml :latest, { locals: { title: 'Filtered Messages', messages: messages, tags: true } }
+      current_user = User.find_by_username(session[:username])
+      haml :latest, { locals: { title: 'Filtered Messages', messages: messages, tags: true, current_user: current_user } }
     end
 
     helpers ViewHelpers
