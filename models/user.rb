@@ -41,6 +41,10 @@ class User
   end
 
   def encrypt_password
-    self.password = Password.create(self.password)
+    begin
+      self.password = Password.new(self.password)
+    rescue BCrypt::Errors::InvalidHash
+      self.password = Password.create(self.password)
+    end
   end
 end
