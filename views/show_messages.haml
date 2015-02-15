@@ -6,7 +6,7 @@
           %strong
             = print_username(message.user.username, locals[:followed]) + ':'
           .right
-            = date_to_string(message.date)
+            = minutes_in_words(message.date)
         .panel-body
           = print_message_content(message)
           - if !message.location.empty?
