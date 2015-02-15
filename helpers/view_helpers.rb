@@ -39,6 +39,19 @@ module Hirundo
       content
     end
 
+    def followed?(username, followed)
+      followed.include? username
+    end
+
+    def print_username(username, followed)
+      string = ''
+      if followed?(username, followed)
+        string += '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'
+      end
+
+      string += '<a href="/user/profile/' + username + '">' + username + '</a>'
+    end
+
     def minutes_in_words(timestamp)
       minutes = ((Time.now - timestamp).abs).round
 

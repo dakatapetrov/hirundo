@@ -8,8 +8,8 @@
   %tr
     %th Username:
     %td
-      = user.username
-      - if user.username != session[:username]
+      = print_username(user.username, locals[:followed])
+      - if (user.username != session[:username]) && !followed?(user.username, locals[:followed])
         = '<a href="/user/follow/' + user.username + '">Follow</a>'
   %tr
     %th E-mail:
@@ -30,7 +30,7 @@
     %table.table
       %tr
         %th
-          = followed.username
+          = print_username(followed.username, locals[:followed])
         - if user.username == session[:username]
           %td
             = '<a href="/user/unfollow/' + followed.username + '">Unfollow</a>'
@@ -40,21 +40,7 @@
 
 - if locals[:messages].size > 0
   %h2 Shared Messages
-
-  - if locals[:messages]
-    - locals[:messages].each do |message|
-      .panel.panel-default.spacer
-        .panel-heading.inline
-          %strong
-            = message.user.username + ':'
-          .right
-            = date_to_string(message.date)
-        .panel-body
-          = print_message_content(message)
-          - if message.location
-            .right
-              %span.glyphicon.glyphicon-map-marker
-              = message.location
 - else
   %h2 This user has no shared messages yet
 
+= (haml :show_messages, locals: locals)
