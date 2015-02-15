@@ -19,5 +19,13 @@ module Hirundo
     def protected!
       halt 401, (redirect '/login') unless user_logged?
     end
+
+    def get_current_user
+      User.find_by_username(session[:username])
+    end
+
+    def get_followed
+      get_current_user.follows.map(&:username)
+    end
   end
 end
