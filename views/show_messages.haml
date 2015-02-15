@@ -1,15 +1,15 @@
 .messages.container
-- if locals[:messages].size > 0
-  - locals[:messages].each do |message|
-    .panel.panel-default.spacer
-      .panel-heading.inline
-        %strong
-          = print_username(message.user.username, locals[:followed]) + ':'
-        .right
-          = date_to_string(message.date)
-      .panel-body
-        = print_message_content(message)
-        - if !message.location.empty?
+  - if locals[:messages].size > 0
+    - locals[:messages].each do |message|
+      .panel.panel-default.spacer
+        .panel-heading.inline
+          %strong
+            = print_username(message.user.username, locals[:followed]) + ':'
           .right
-            %span.glyphicon.glyphicon-map-marker
-              = message.location
+            = date_to_string(message.date)
+        .panel-body
+          = print_message_content(message)
+          - if !message.location.empty?
+            .right
+              %span.glyphicon.glyphicon-map-marker
+                = message.location
