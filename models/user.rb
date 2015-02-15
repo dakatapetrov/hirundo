@@ -29,6 +29,12 @@ class User
     )
   end
 
+  def follows?(user)
+    self.follows.any? do |followed|
+      followed.id == user.id
+    end
+  end
+
   class << self
     def find_by_username(username)
       User.find_by(username: username)

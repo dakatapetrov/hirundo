@@ -48,12 +48,15 @@ module Hirundo
       redirect '/messages/latest' unless request.xhr?
       content_type :json
 
+      user = get_current_user
+
       messages = Message.find_latest_in_period.reverse
       messages_json = JSON.parse(messages.to_json)
 
       messages.each_with_index do |message, index|
         username = message.user.username
         messages_json[index].merge!(username: username)
+        messages_json[index].merge!(follows: user.follows?(message.user))
       end
 
       messages_json.to_json
