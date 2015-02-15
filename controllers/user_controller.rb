@@ -8,11 +8,16 @@ module Hirundo
       user     = User.find_by_username(params[:username])
       messages = Message.find_by_user(user)
 
-      haml :profile, locals: { title: 'Profile', user: user, messages: messages }
+      haml :profile, locals: {
+        title: 'Profile',
+        user: user,
+        messages: messages,
+        followed: get_followed
+      }
     end
 
     get '/follow/:username' do
-      current_user = User.find_by_username(session[:username])
+      current_user   = get_current_user
       user_to_follow = User.find_by_username(params[:username])
 
       current_user.follows.push(user_to_follow)
@@ -21,7 +26,7 @@ module Hirundo
     end
 
     get '/unfollow/:username' do
-      current_user = User.find_by_username(session[:username])
+      current_user     = get_current_user
       user_to_unfollow = User.find_by_username(params[:username])
 
       begin
