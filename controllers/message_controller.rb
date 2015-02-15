@@ -10,7 +10,11 @@ module Hirundo
       current_user = User.find_by_username(session[:username])
       messages = Message.find_by_followers(current_user.follows)
 
-      haml :feed, locals: { title: title, messages: messages }
+      haml :feed, locals: {
+        title: title,
+        messages: messages,
+        followed: get_followed,
+      }
     end
 
     post '/feed' do
@@ -36,7 +40,7 @@ module Hirundo
       haml :latest, locals: {
         title: 'Latest Messages',
         messages: messages,
-        followed: get_followed
+        followed: get_followed,
       }
     end
 
