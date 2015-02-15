@@ -8,14 +8,14 @@ module Hirundo
       errors = flash[:errors]
 
       message = case errors
-        when String
-          errors
-        when Hash
-          errors.values.inject("") do |memo, value|
-            messages = value.inject("") { |mem, msg| mem += msg }
-            memo += "<p>#{messages}</p>"
-          end
-        end
+                when String
+                  errors
+                when Hash
+                  errors.values.inject("") do |memo, value|
+                    messages = value.inject("") { |mem, msg| mem += msg }
+                    memo += "<p>#{messages}</p>"
+                  end
+                end
 
       show_message(message, 'danger')
     end
@@ -37,6 +37,22 @@ module Hirundo
       end
 
       content
+    end
+
+    def minutes_in_words(timestamp)
+      minutes = ((Time.now - timestamp).abs).round
+
+      return nil if minutes < 0
+
+      case minutes
+      when 0..60           then "#{minutes} secs ago"
+      when 60..3599        then "#{minutes/60} mins ago"
+      when 3600..86399     then "#{minutes/60/60} hrs ago"
+      when 86400..691140   then '' << pluralize((minutes/1440/60).floor, 'days ago')
+      when 11520..43199    then '' << pluralize((minutes/11520/60).floor, 'weeks ago')
+      when 43200..525599   then '' << pluralize((minutes/43200/60).floor, 'months ago')
+      else                      '' << pluralize((minutes/525600/60).floor, 'years ago')
+      end
     end
   end
 end
