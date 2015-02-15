@@ -1,0 +1,60 @@
+.text-center
+  %h1
+    = locals[:title]
+
+%h2 Information
+
+%table.table.spacer
+  %tr
+    %th Username:
+    %td
+      = user.username
+      - if user.username != session[:username]
+        = '<a href="/user/follow/' + user.username + '">Follow</a>'
+  %tr
+    %th E-mail:
+    %td
+      = user.email
+  %tr
+    %th Member since:
+    %td
+      = date_to_string(user.registration_date)
+  %tr
+    %th Shared messages:
+    %td
+      = messages.size
+
+- if user.follows.size > 0
+  %h2 Follows
+  - user.follows.each do |followed|
+    %table.table
+      %tr
+        %th
+          = followed.username
+        - if user.username == session[:username]
+          %td
+            = '<a href="/user/unfollow/' + followed.username + '">Unfollow</a>'
+- else
+  %h2 This user has followed no one so far.
+
+
+- if locals[:messages].size > 0
+  %h2 Shared Messages
+
+  - if locals[:messages]
+    - locals[:messages].each do |message|
+      .panel.panel-default.spacer
+        .panel-heading.inline
+          %strong
+            = message.user.username + ':'
+          .right
+            = date_to_string(message.date)
+        .panel-body
+          = print_message_content(message)
+          - if message.location
+            .right
+              %span.glyphicon.glyphicon-map-marker
+              = message.location
+- else
+  %h2 This user has no shared messages yet
+
