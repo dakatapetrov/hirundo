@@ -10,7 +10,8 @@ class Message
   belongs_to :user
 
   validates_presence_of :content, message: 'Please provide content of the message.'
-  validates_length_of :content, maximum: 150, message: 'The message should be maximum 150 symbols long.'
+  validates_length_of :content, maximum: 140, message: 'The message should be maximum 140 symbols long.'
+  validates_length_of :location, maximum: 140, message: 'The location should be maximum 140 symbols long.'
 
   def initialize(content, location, user)
     super(
