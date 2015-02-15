@@ -26,6 +26,7 @@ Dir.glob('./{models,helpers,controllers}/*.rb').each { |file| require file }
 PATHS = {
   '/'         => Hirundo::WebsiteController,
   '/messages' => Hirundo::MessageController,
+  '/user'     => Hirundo::UserController
 }
 
 PATHS.each { |path, controller|  map(path) { run controller } }
