@@ -29,5 +29,9 @@ class Message
     def find_by_tags(tags, limit = 50)
       Message.all_in(tags: tags).desc(:date).limit(limit)
     end
+
+    def find_by_user(user, limit = 50)
+      Message.where(user: user).desc(:date).limit(limit)
+    end
   end
 end
