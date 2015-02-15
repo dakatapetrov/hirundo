@@ -28,6 +28,19 @@ module Hirundo
       date.strftime("%d/%m/%Y %H:%M:%S")
     end
 
+    def minutes_in_words(timestamp)
+      minutes = ((Time.now - timestamp).abs).round
+
+      return nil if minutes < 0
+
+      case minutes
+      when 0..60           then "#{minutes} secs ago"
+      when 60..3599        then "#{minutes/60} mins ago"
+      when 3600..86399     then "#{minutes/60/60} hrs ago"
+      when 86400..691140   then "#{minutes/86400} days ago"
+      end
+    end
+
     def print_message_content(message)
       content = message.content
       if message.tags
@@ -46,23 +59,10 @@ module Hirundo
     def print_username(username, followed)
       string = ''
       if followed?(username, followed)
-        string += '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'
+        string += '<span class="glyphicon glyphicon-star" aria-hidden="true"></span> '
       end
 
       string += '<a href="/user/profile/' + username + '">' + username + '</a>'
-    end
-
-    def minutes_in_words(timestamp)
-      minutes = ((Time.now - timestamp).abs).round
-
-      return nil if minutes < 0
-
-      case minutes
-      when 0..60           then "#{minutes} secs ago"
-      when 60..3599        then "#{minutes/60} mins ago"
-      when 3600..86399     then "#{minutes/60/60} hrs ago"
-      when 86400..691140   then "#{minutes/86400} days ago"
-      end
     end
   end
 end

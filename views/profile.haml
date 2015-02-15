@@ -10,7 +10,9 @@
     %td
       = print_username(user.username, locals[:followed])
       - if (user.username != session[:username]) && !followed?(user.username, locals[:followed])
-        = '<a href="/user/follow/' + user.username + '">Follow</a>'
+        = '<a href="/user/follow/' + user.username + '">(Follow)</a>'
+      - if (user.username != session[:username]) && followed?(user.username, locals[:followed])
+        = '<a href="/user/unfollow/' + user.username + '">(Unfollow)</a>'
   %tr
     %th E-mail:
     %td
@@ -26,8 +28,8 @@
 
 - if user.follows.size > 0
   %h2 Follows
-  - user.follows.each do |followed|
-    %table.table
+  %table.table
+    - user.follows.each do |followed|
       %tr
         %th
           = print_username(followed.username, locals[:followed])
