@@ -26,6 +26,10 @@ class Message
       Message.all.desc(:date).limit(limit)
     end
 
+    def find_latest_in_period(period = 30)
+      Message.where(date: { '$gt' => Time.now - period}).desc(:date)
+    end
+
     def find_by_tags(tags, limit = 50)
       Message.all_in(tags: tags).desc(:date).limit(limit)
     end
