@@ -17,7 +17,7 @@
           = date_to_string(message.date)
       .panel-body
         = print_message_content(message)
-        - if message.location
+        - if !message.location.empty?
           .right
             %span.glyphicon.glyphicon-map-marker
             = message.location
