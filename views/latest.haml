@@ -10,7 +10,9 @@
     .panel.panel-default.spacer
       .panel-heading.inline
         %strong
-          = message.user.username + ':'
+          - if current_user.follows.map(&:username).include? message.user.username
+            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+          = '<a href="/user/profile/' + message.user.username + '">' + message.user.username + '</a>:'
         .right
           = date_to_string(message.date)
       .panel-body
